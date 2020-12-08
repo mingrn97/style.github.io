@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>滑动菜单指示器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #090a20;
+        }
+
+        nav {
+            position: relative;
+            display: flex;
+        }
+
+        nav a {
+            position: relative;
+            margin: 0 20px;
+            font-size: 2em;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        nav #marker {
+            position: absolute;
+            height: 4px;
+            width: 0;
+            background: #e35188;
+            left: 0;
+            bottom: -8px;
+            transition: 500ms;
+            border-radius: 4pc;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <nav>
+            <div id="marker"></div>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Portfolio</a>
+            <a href="#">Team</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+</body>
+<script>
+
+    let marker = document.querySelector('nav #marker');
+    let item = document.querySelectorAll('nav a');
+
+    // 指示器
+    function indicator(e) {
+        marker.style.left = e.offsetLeft + 'px';
+        marker.style.width = e.offsetWidth + 'px';
+    }
+
+    item.forEach(link => {
+        link.addEventListener('click', e => {
+            indicator(e.target)
+        })
+    })
+
+    /* document.querySelector('nav').addEventListener('mouseout', e => {
+        
+        const left = marker.offsetLeft;
+        let width = marker.offsetWidth;
+
+        // 判断奇偶, 偶数自加1
+        if (width & 1 === 1) {
+            width += 1;
+        }
+
+        const half = left + width / 2;
+
+        marker.style.left = half + 'px';
+        marker.style.width = '0px';
+    }) */
+</script>
+
+</html>
