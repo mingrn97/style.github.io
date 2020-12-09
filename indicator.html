@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滑动菜单指示器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #090a20;
+        }
+
+        nav {
+            position: relative;
+            display: flex;
+        }
+
+        nav a {
+            position: relative;
+            margin: 0 20px;
+            font-size: 2em;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        nav #marker {
+            position: absolute;
+            height: 4px;
+            width: 0;
+            left: 0;
+            bottom: -8px;
+            border-radius: 4px;
+            background: #e35188;
+            -moz-transition: 500ms;
+            -o-transition: 500ms;
+            -webkit-transition: 500ms;
+            transition: 500ms;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <div id="marker"></div>
+            <a href="#">About</a>
+            <a href="#">Team</a>
+            <a href="#">Service</a>
+            <a href="#">Home</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+</body>
+<script>
+
+    let container = document.querySelector('.container');
+
+    let marker = document.querySelector('#marker');
+    let items = document.querySelectorAll('nav a');
+
+    // 指示器
+    function indicator(e) {
+        marker.style.left = e.offsetLeft + 'px';
+        marker.style.width = e.offsetWidth + 'px';
+    }
+
+    items.forEach(link => {
+        link.addEventListener('mouseover', e => {
+            indicator(e.target);
+        })
+    })
+
+    container.addEventListener('mouseleave', e => {
+        let _left = marker.offsetLeft;
+        let _width = marker.offsetWidth;
+
+        // 判断奇偶, 偶数自加1
+        if (_width & 1 === 1) {
+            _width += 1;
+        }
+
+        let _half = _left + _width / 2;
+
+        marker.style.left = _half + 'px';
+        marker.style.width = 0;
+    })
+
+</script>
+
+</html>
